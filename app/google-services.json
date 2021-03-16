@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "643613331715",
+    "project_id": "gubuk-82691",
+    "storage_bucket": "gubuk-82691.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643613331715:android:7e85820ba94034c21a1936",
+        "android_client_info": {
+          "package_name": "com.tegar.gubuk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643613331715-hqj1tgeh9jrhv7ie3tn9vn6er6736e1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdsKqVabUs2PZ5SPQXG0BULt-NY_Ic1PU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643613331715-hqj1tgeh9jrhv7ie3tn9vn6er6736e1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

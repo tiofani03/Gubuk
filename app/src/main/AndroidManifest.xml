@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tegar.gubuk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Gubuk.NoActionBar">
+        <activity
+            android:name=".ui.maps.MapsActivity"
+            android:theme="@style/Theme.Gubuk"
+            />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.profile.OrderListActivity" />
+        <activity android:name=".ui.main.popular.PopularActivity" />
+        <activity android:name=".ui.splash.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.order.OrderBookActivity" />
+        <activity android:name=".ui.profile.EditProfileActivity" />
+        <activity android:name=".ui.admin.book.UpdateBookActivity" />
+        <activity android:name=".ui.admin.book.AddBookActivity" />
+        <activity android:name=".ui.admin.DashboardAdmin" />
+        <activity android:name=".ui.profile.ProfileActivity" />
+        <activity android:name=".ui.auth.RegisterActivity" />
+        <activity android:name=".ui.auth.LoginActivity"></activity>
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:theme="@style/Theme.Gubuk.NoActionBar.Detail" />
+        <activity android:name=".ui.main.MainActivity" />
+    </application>
+
+</manifest>

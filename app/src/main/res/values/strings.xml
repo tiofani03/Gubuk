@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Gubuk</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detail">Harry Potter and the Cursed Child is definitely the eighth book in the Harry Potter
+            series, picking up from where we left – nineteen years after the Battle of Hogwarts.
+            This book, written by John Tiffany and Jack Thorne is based on a story written by our
+            queen, JK Rowling.</string>
+    <string name="access_token">pk.eyJ1IjoidGVnYXJpbWFuMTIiLCJhIjoiY2tsejc5N2JuMGczOTJvbzZ5MjMzNGlidiJ9.4xKhcdmPvg9JHeDMV0oWkw</string>
+</resources>
