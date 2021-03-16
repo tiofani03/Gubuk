@@ -5,6 +5,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentId
 import kotlinx.android.parcel.Parcelize
 
+//representasi koleksi Order dari firestore
 @Parcelize
 data class Order(
         @DocumentId

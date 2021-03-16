@@ -11,11 +11,13 @@ import com.tegar.gubuk.model.Order
 import com.tegar.gubuk.utils.Helper
 import com.tegar.gubuk.utils.Helper.toTimeAgo
 
+//adapter untuk menampilkan list orderan
 class ListOrderAdapter : RecyclerView.Adapter<ListOrderAdapter.ListOrderViewHolder>() {
 
 
     private val orderList = ArrayList<Order>()
 
+    //mengatur list
     fun setList(list: List<Order>) {
         orderList.clear()
         orderList.addAll(list)
@@ -40,8 +42,10 @@ class ListOrderAdapter : RecyclerView.Adapter<ListOrderAdapter.ListOrderViewHold
         private val binding = ItemOrderBookBinding.bind(view)
         fun bindItem(order: Order) {
             Log.d("LitWaktu","Waktu : ${order.time}")
+            // mengatur waktu (time ago) dengan menggunakan library
             binding.tvDate.text = order.time!!.toTimeAgo()
             binding.tvTitle.text = order.bookName
+            //mengatur data harga
             binding.tvBookPrice.text = Helper.rupiahHelper(order.bookPrice)
             binding.tvStatusOrder.text = order.status
         }

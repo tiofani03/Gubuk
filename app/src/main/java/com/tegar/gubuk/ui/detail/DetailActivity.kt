@@ -36,6 +36,7 @@ class DetailActivity : AppCompatActivity() {
         book = intent.getParcelableExtra(EXTRA_DETAIL)
         setCollapsing(book?.title)
         setDetail(book!!)
+        //ketika tombol detail diklik
         binding.contentDetail.btnOrder.setOnClickListener {
             val intent = Intent(this,OrderBookActivity::class.java)
             intent.putExtra(OrderBookActivity.EXTRA_ORDER,book)
@@ -44,6 +45,7 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
+    //mengatur detail
     private fun setDetail(book: Book) {
         with(binding) {
             ivBackDrop.load(book.imageUrl)
@@ -59,6 +61,7 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
+    //mengatur ketika discroll
     private fun setCollapsing(title: String?) {
         binding.tvTitle.text = " "
         binding.collapsingToolbar.setCollapsedTitleTextColor(
@@ -94,6 +97,7 @@ class DetailActivity : AppCompatActivity() {
 
     }
 
+    //tombol back
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true

@@ -10,6 +10,7 @@ import com.tegar.gubuk.model.Users
 object UserFireStore {
     private const val TAG = "UserService"
 
+    //membuat user
     fun createNewUser(user: Users, isSuccess: (Boolean) -> Unit) {
         Firebase.firestore.collection("Users")
             .document(Firebase.auth.currentUser?.uid ?: "")
@@ -18,6 +19,7 @@ object UserFireStore {
             .addOnFailureListener { isSuccess(false) }
     }
 
+    //mendapatkan semua data user digunakan oleh admin
     fun getAllUsers(onResult: (List<Users>) -> Unit) {
         Firebase.firestore.collection("Users")
             .addSnapshotListener { value, error ->
@@ -32,6 +34,7 @@ object UserFireStore {
             }
     }
 
+    //mendapatkan data 1 user
     fun getUser(id: String, onResult: (Users) -> Unit) {
         Firebase.firestore.collection("Users")
             .document(id)
@@ -47,6 +50,7 @@ object UserFireStore {
             }
     }
 
+    //mengupdate profile user
     fun updateProfile(uid: String, user: Users, isSuccess: (Boolean) -> Unit) {
         Firebase.firestore.collection("Users")
             .document(uid)

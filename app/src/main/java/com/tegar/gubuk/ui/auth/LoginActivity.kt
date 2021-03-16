@@ -53,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //memvalidasi form jika kosong mengembalikan nilai false
     private fun validateForm(): Boolean {
         var valid = true
         if (TextUtils.isEmpty(binding.edtEmail.getPlainText())) {
@@ -73,10 +74,13 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    //untuk login dengan menggunakan library dari firebase
     private fun login(email: String, password: String) {
+        //login dengan email
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    //jika sukses
                     checkLogin()
                     showToast(this, "Login berhasil")
 
@@ -89,22 +93,28 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    //mengecek login
     private fun checkLogin() {
         val currentUser = auth.currentUser
+        //ketika user tidak kosong
         if (currentUser != null) {
             Handler(mainLooper).postDelayed({
                 UserFireStore.getUser(auth.currentUser!!.uid) {
+                    //jika status == user
                     if (it.status == "user") {
                         val intent = Intent(this,MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        //membuka mainactivity
                         startActivity(intent)
                         dismissLottieDialog()
                         finish()
                     } else if (it.status == "admin") {
+                        //jika statusnya admin
                         val intent = Intent(this,DashboardAdmin::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        //membuka admin
                         startActivity(intent)
                         finish()
                     }

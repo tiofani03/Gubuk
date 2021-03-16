@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
 import kotlinx.android.parcel.Parcelize
 
+//representasi koleksi User dari firestore
 @Parcelize
 data class Users(
     @DocumentId

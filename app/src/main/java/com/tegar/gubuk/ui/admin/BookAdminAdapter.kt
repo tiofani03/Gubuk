@@ -39,6 +39,8 @@ class BookAdminAdapter : RecyclerView.Adapter<BookAdminAdapter.UserViewHolder>()
         fun bindItem(book: Book) {
             binding.imgItemPhoto.load(book.imageUrl)
             binding.tvItemName.text = book.title
+
+            //ketika item book pada admin diklik
             with(itemView){
                 setOnClickListener {
                     val intent = Intent(context,UpdateBookActivity::class.java)

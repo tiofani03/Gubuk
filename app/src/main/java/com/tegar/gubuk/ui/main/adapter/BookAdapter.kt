@@ -45,6 +45,7 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
                 binding.rbRating.rating = book.rating!!.toFloat()
             }
 
+            //ketika data diklik
             with(itemView){
                 setOnClickListener {
                     val intent = Intent(context,DetailActivity::class.java)

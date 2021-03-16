@@ -48,6 +48,7 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    //mendapatkan data profile dari firestore berdasarkan uid
     private fun setProfile() {
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         UserFireStore.getUser(uid) {
@@ -62,11 +63,13 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    //menu pojok kanan atas
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_logout, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    //mengatur toolbar ketika diklik
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_logout) {
             Firebase.auth.signOut()
@@ -80,6 +83,7 @@ class ProfileActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    //menampilkan dialog tema
     private fun setThemeDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Pilih Tema")
@@ -113,6 +117,7 @@ class ProfileActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    //untuk mengecek tema
     private fun checkTheme() {
         when (ThemePreference(this).theme) {
             0 -> {

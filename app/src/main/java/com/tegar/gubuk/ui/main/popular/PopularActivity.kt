@@ -25,6 +25,7 @@ class PopularActivity : AppCompatActivity() {
         setPopularBook()
     }
 
+    //mengatur buku populer
     private fun setPopularBook(){
         BookFireStore.getPopularBook {
             if(it.isNotEmpty()){
@@ -33,6 +34,7 @@ class PopularActivity : AppCompatActivity() {
         }
 
         binding.rvPopular.apply {
+            //menampilkan berdasarkan grid
             layoutManager = GridLayoutManager(this@PopularActivity,2,LinearLayoutManager.VERTICAL,false)
             adapter = bookAdapter
         }

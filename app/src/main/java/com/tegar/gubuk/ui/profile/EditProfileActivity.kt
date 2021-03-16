@@ -28,11 +28,15 @@ class EditProfileActivity : AppCompatActivity() {
         setProfile()
     }
 
+    //mengatur profile
     private fun setProfile() {
         val id = Firebase.auth.currentUser!!.uid
+        //mendapatkan data dari firestore berdasarkan uid
         UserFireStore.getUser(id) { user ->
+            //ketika id tidak null
             if (user.id != null) {
                 with(binding) {
+                    //mengeset data
                     edtName.setText(user.name)
                     edtEmail.setText(user.email)
                     btnUpdate.setOnClickListener {
@@ -46,6 +50,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
+    //mengecek apakah formnya kosong atau tidak
     private fun validateForm(): Boolean {
         var state = true
         if (TextUtils.isEmpty(binding.edtName.text.toString())) {
@@ -55,9 +60,11 @@ class EditProfileActivity : AppCompatActivity() {
         return state
     }
 
+    //mengupdate data
     private fun updateData(users: Users) {
         val id = FirebaseAuth.getInstance().currentUser!!.uid
         users.name = edtName.text.toString()
+        //mengupdate data ke firestore
         UserFireStore.updateProfile(id, users) {
             if (it) {
                 showToast(this, "Data berhasil diupdate")

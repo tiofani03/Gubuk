@@ -57,6 +57,7 @@ class MapsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.mapView.onCreate(savedInstanceState)
+        //mengatur mapbox
         binding.mapView.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
             mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
@@ -90,6 +91,7 @@ class MapsActivity : AppCompatActivity() {
     }
 
     private fun showBookStoreLocation() {
+        //mendapat data dari parcelable
         val extraMap = intent.getParcelableExtra<BookStore>(EXTRA_MAP)
         if (extraMap != null) {
             initTitle(extraMap.name.toString())
@@ -98,6 +100,7 @@ class MapsActivity : AppCompatActivity() {
             val location = LatLng(latitude!!, longitude!!)
 
 
+            //mengatur simbol lokasi
             symbolManager.create(
                 SymbolOptions()
                     .withLatLng(LatLng(location.latitude, location.longitude))
@@ -111,8 +114,11 @@ class MapsActivity : AppCompatActivity() {
                     .withTextOffset(arrayOf(0f, 1.5f))
                     .withDraggable(false)
             )
+            //lokasi tujuan toko buku
             val destination = Point.fromLngLat(longitude, latitude)
+            //lokasi gps
             val origin = Point.fromLngLat(myLocation.longitude, myLocation.latitude)
+            //menampilakn rute
             requestRoute(origin, destination)
             mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 8.0))
 
@@ -122,9 +128,11 @@ class MapsActivity : AppCompatActivity() {
     }
 
 
+    //menampilkan lokasi saya
     @SuppressLint("MissingPermission")
     private fun showMyLocation(style: Style) {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            //jika permission di terima
             val locationComponentOptions = LocationComponentOptions.builder(this)
                 .pulseEnabled(true)
                 .pulseColor(Color.BLUE)
@@ -148,7 +156,9 @@ class MapsActivity : AppCompatActivity() {
                 locationComponent.lastKnownLocation?.longitude as Double
             )
             mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 12.0))
+            //menampilkan lokasi toko buku
             showBookStoreLocation()
+            //menampilkan navigasi
             showNavigation()
         } else {
             permissionManager = PermissionsManager(object : PermissionsListener {
@@ -173,11 +183,13 @@ class MapsActivity : AppCompatActivity() {
     }
 
 
+    //untuk menampilkan rute
     private fun requestRoute(origin: Point, destination: Point) {
         navigationMapRoute.updateRouteVisibilityTo(false)
         NavigationRoute.builder(this)
             .accessToken(getString(R.string.access_token))
             .origin(origin)
+                //lokasi tujuan
             .destination(destination)
             .build()
             .getRoute(object : retrofit2.Callback<DirectionsResponse> {
@@ -194,6 +206,7 @@ class MapsActivity : AppCompatActivity() {
                     }
 
                     currentRoute = response.body()?.routes()?.get(0)
+                    //menampilkan rute
                     navigationMapRoute.addRoute(currentRoute)
                 }
 
@@ -204,16 +217,20 @@ class MapsActivity : AppCompatActivity() {
             })
     }
 
+    //menampilkan navigasi
     private fun showNavigation() {
         binding.btnNavigation.visibility = View.VISIBLE
         binding.btnNavigation.setOnClickListener {
+            //mensimulasikan navigasi
             val simulateRoute = true
 
             val options = NavigationLauncherOptions.builder()
+                    //rute sekarang
                 .directionsRoute(currentRoute)
                 .shouldSimulateRoute(simulateRoute)
                 .build()
 
+            //menampilakn rute navigasi
             NavigationLauncher.startNavigation(this, options)
         }
     }

@@ -21,18 +21,23 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
     }
 
+    //untuk mengecek login
     private fun checkLogin() {
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
+        //cek user firebase sudah ada
         if (currentUser != null) {
             Handler(mainLooper).postDelayed({
                 UserFireStore.getUser(auth.currentUser!!.uid) {
+                    //ketika statusnya user
                     if (it.status == "user") {
                         val intent = Intent(this, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         startActivity(intent)
                         finish()
+
+                    //ketika statusnya admin
                     } else if (it.status == "admin") {
                         val intent = Intent(this, DashboardAdmin::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -42,6 +47,7 @@ class SplashActivity : AppCompatActivity() {
                     }
                 }
             },1000)
+            //ketika tidak ada user pada firebase
         }else{
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -50,6 +56,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    //untuk mengecek tema yang digunakan
     private fun checkTheme() {
         when (ThemePreference(this).theme) {
             0 -> {
@@ -67,6 +74,7 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    //ketika activity dibuka
     public override fun onStart() {
         super.onStart()
         checkLogin()

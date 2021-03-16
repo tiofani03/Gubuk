@@ -7,9 +7,11 @@ import com.tegar.gubuk.model.Book
 import com.tegar.gubuk.model.BookStore
 import com.tegar.gubuk.utils.DataSource.mapped
 
+//objek untuk buku mengakses firestore
 object BookFireStore {
     private const val TAG = "bookFireStore"
 
+    //menambahkan buku dengan buku dan id sebagai parameter, dan menghasilkan data boolean
     fun addBook(book: Book, id: String, isSuccess: (Boolean) -> Unit) {
         Firebase.firestore.collection("Book")
             .document(id)
@@ -18,8 +20,10 @@ object BookFireStore {
             .addOnFailureListener { isSuccess(false) }
     }
 
+    //mendapatkan data  buku dengan menghasilkan data list buku
     fun getAllBook(onResult: (List<Book>) -> Unit) {
         Firebase.firestore.collection("Book")
+                //menggunakn snapshot agar data realtime
             .addSnapshotListener { value, error ->
                 if (error != null) Log.d(TAG, "getCategory Error ${error.message}")
                 if (value != null && !value.isEmpty) {
@@ -32,8 +36,10 @@ object BookFireStore {
             }
     }
 
+    //mendapatkan data populer dari buku
     fun getPopularBook(onResult: (List<Book>) -> Unit) {
         Firebase.firestore.collection("Book")
+                //dengan kondisi status == news
             .whereEqualTo("status", "news")
             .addSnapshotListener { value, error ->
                 if (error != null) Log.d(TAG, "getCategory Error ${error.message}")
@@ -47,6 +53,7 @@ object BookFireStore {
             }
     }
 
+    //mencari buku
     fun searchBook(query: String, onResult: (List<Book>) -> Unit) {
         Firebase.firestore.collection("Book")
             .orderBy("search")
@@ -64,6 +71,7 @@ object BookFireStore {
     }
 
 
+    //mengupdate buku yang digunakan oleh admin
     fun updateBook(id: String, book: Book, isSuccess: (Boolean) -> Unit) {
         Firebase.firestore.collection("Book")
             .document(id)
@@ -75,6 +83,7 @@ object BookFireStore {
             }
     }
 
+    //menghapus buku yang digunakan oleh admin
     fun deleteBook(id: String, isSuccess: (Boolean) -> Unit) {
         Firebase.firestore.collection("Book")
             .document(id)
@@ -86,6 +95,7 @@ object BookFireStore {
             }
     }
 
+    //mendapatkan lokasi dari toko buku
     fun getBookStoreLocation(onResult: (List<BookStore>) -> Unit) {
         Firebase.firestore.collection("bookStore")
             .addSnapshotListener { value, error ->

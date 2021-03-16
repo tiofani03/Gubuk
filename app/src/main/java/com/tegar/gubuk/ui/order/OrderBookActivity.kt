@@ -49,6 +49,7 @@ class OrderBookActivity : AppCompatActivity() {
         }
     }
 
+    //endapatkan data dari firestore
     private fun getData() {
         if (bookOrder != null) {
             with(binding) {
@@ -57,6 +58,7 @@ class OrderBookActivity : AppCompatActivity() {
             }
         }
 
+        //mendapatkan data nama user
         UserFireStore.getUser(userId) {
             if (it.id != null) {
                 binding.edtName.setText(it.name)
@@ -65,6 +67,7 @@ class OrderBookActivity : AppCompatActivity() {
 
     }
 
+    //memvalidasi form
     private fun validate(): Boolean {
         var valid = true
         if (TextUtils.isEmpty(binding.edtName.getPlainText())) {
@@ -91,10 +94,12 @@ class OrderBookActivity : AppCompatActivity() {
         return valid
     }
 
+    //membuat orderan
     private fun makeOrder() {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val uid = db.collection("Order").document().id
 
+        //mengisi data
         val order = Order(
             id = uid,
             idUser = userId,
@@ -108,6 +113,7 @@ class OrderBookActivity : AppCompatActivity() {
         )
         Log.d("TestUid", "UId : $uid")
 
+        //mengatur data ke firestore
         OrderFireStore.addOrder(order, uid) {
             if (it) {
                 toast("Pesanan diproses")

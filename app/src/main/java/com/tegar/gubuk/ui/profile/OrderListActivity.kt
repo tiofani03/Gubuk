@@ -31,6 +31,7 @@ class OrderListActivity : AppCompatActivity() {
     }
 
 
+    //menampilkan listorderan
     private fun getListOrder(){
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         Log.d("Uid","Uid : $uid")

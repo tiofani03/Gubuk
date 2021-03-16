@@ -32,9 +32,12 @@ class AddBookActivity : AppCompatActivity() {
         }
     }
 
+    //menambah buku baru
     private fun addNewBook() {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        //nama koleksinya
         val uid = db.collection("Book").document().id
+        //menginisiasi buku
         val book = Book(
             id = uid,
             title = edtTitle.getPlainText(),
@@ -51,6 +54,7 @@ class AddBookActivity : AppCompatActivity() {
         )
         Log.d("TestUid", "UId : $uid")
 
+        //menambahkan data buku
         BookFireStore.addBook(book, uid) {
             if (it) {
                 toast("Penambahan berhasil")
@@ -65,6 +69,7 @@ class AddBookActivity : AppCompatActivity() {
 
     }
 
+    //validasi data
     private fun validate(): Boolean {
         var valid = true
         if (TextUtils.isEmpty(binding.edtTitle.getPlainText())) {
@@ -133,6 +138,7 @@ class AddBookActivity : AppCompatActivity() {
         return valid
     }
 
+    //mengatur swith jika aktif maka news
     private fun setSwitch() {
         binding.switchStatus.setOnCheckedChangeListener { _, b ->
             status = if (b) {

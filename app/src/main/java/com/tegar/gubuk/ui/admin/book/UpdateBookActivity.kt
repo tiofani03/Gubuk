@@ -48,6 +48,7 @@ class UpdateBookActivity : AppCompatActivity() {
         setSwitch()
     }
 
+    //mengatur data
     private fun setData() {
         with(binding) {
             edtTitle.setText(book.title)
@@ -75,6 +76,7 @@ class UpdateBookActivity : AppCompatActivity() {
         }
     }
 
+    //cek validasi
     private fun validate(): Boolean {
         var valid = true
         if (TextUtils.isEmpty(binding.edtTitle.getPlainText())) {
@@ -143,7 +145,9 @@ class UpdateBookActivity : AppCompatActivity() {
         return valid
     }
 
+    //mengupdate data buku
     private fun updateBook() {
+        //inisiasi objek
         val bookUpdate = Book(
             title = edtTitle.getPlainText(),
             category = edtCategory.getPlainText(),
@@ -169,6 +173,7 @@ class UpdateBookActivity : AppCompatActivity() {
         }
     }
 
+    //menampilkan dialog hapus
     private fun showDeleteDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Peringatan")
@@ -188,6 +193,7 @@ class UpdateBookActivity : AppCompatActivity() {
         builder.show()
     }
 
+    //fungsi untuk menghapus buku
     private fun deleteBook() {
         BookFireStore.deleteBook(book.id!!) {
             if (it) {
@@ -199,12 +205,14 @@ class UpdateBookActivity : AppCompatActivity() {
         }
     }
 
+    //menampilkan icon trash
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_delete, menu)
         return true
     }
 
+    //ketika tombol trash diklik
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_delete) {
             showDeleteDialog()

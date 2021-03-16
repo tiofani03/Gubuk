@@ -45,14 +45,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        //menampilkan waktu
         binding.tvGreeting.text = Helper.getGreetingMessage()
         bookAdapter = BookAdapter()
         bookPopularAdapter = BookPopularAdapter()
         bookStoreAdapter = BookStoreAdapter()
 
+        //menampilkan buku populer
         showNewsBook()
+
+        //menampilkan semua buku
         showAllBook()
+
+        //menampilakn
         showBookStore()
+
+        //mengatur profile
         setProfile()
         binding.tvSeeMore.setOnClickListener {
             startActivity(Intent(this, PopularActivity::class.java))

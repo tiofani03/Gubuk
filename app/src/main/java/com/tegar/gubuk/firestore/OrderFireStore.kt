@@ -10,8 +10,9 @@ import com.tegar.gubuk.model.Order
 
 
 object OrderFireStore {
-    private const val TAG = "bookFireStore"
+    private const val TAG = "OrderFireStore"
 
+    //menambahkan orderan
     fun addOrder(order: Order, id: String, isSuccess: (Boolean) -> Unit) {
         Firebase.firestore.collection("order")
             .document(id)
@@ -20,8 +21,10 @@ object OrderFireStore {
             .addOnFailureListener { isSuccess(false) }
     }
 
+    //mendapatkan data orderan berdasarkan orderan
     fun getOrderById(idUser: String, onResult: (List<Order>) -> Unit) {
         Firebase.firestore.collection("order")
+                //dengna kondisi id user dan diurutkan secara descending
             .whereEqualTo("idUser", idUser)
             .orderBy("time", Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->

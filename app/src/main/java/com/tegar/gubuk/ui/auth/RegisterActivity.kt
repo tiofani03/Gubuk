@@ -33,6 +33,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun init() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+        //ketika tombol register diklik
         binding.btnRegister.setOnClickListener {
             if (validateForm()) {
                 register(
@@ -47,6 +48,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    //memvalidasi form
     private fun validateForm(): Boolean {
         var valid = true
         if (TextUtils.isEmpty(binding.edtEmail.getPlainText())) {
@@ -77,11 +79,13 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
+    //unuk register
     private fun register(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     firebaseUserID = Firebase.auth.currentUser!!.uid
+                    //mengatur objek
                     val user = Users(
                         id = firebaseUserID,
                         email = email,
@@ -90,6 +94,7 @@ class RegisterActivity : AppCompatActivity() {
                         status = "user"
                     )
 
+                    //membuat akun baru
                     UserFireStore.createNewUser(user) {
                         if (it) {
                             showToast(this, "Daftar berhasil")

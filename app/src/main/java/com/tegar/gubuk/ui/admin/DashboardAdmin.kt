@@ -30,9 +30,11 @@ class DashboardAdmin : AppCompatActivity() {
             startActivity(Intent(this, AddBookActivity::class.java))
         }
 
+        //ketika tombol logout ditekan
         binding.tvLogout.setOnClickListener {
             Firebase.auth.signOut()
             val currentUser = Firebase.auth.currentUser
+            //jika user null
             if (currentUser == null) {
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -49,6 +51,7 @@ class DashboardAdmin : AppCompatActivity() {
     }
 
     private fun setBook() {
+        //mengatur semua buku
         BookFireStore.getAllBook {
             if (it.isNotEmpty()) {
                 with(binding) {
@@ -70,6 +73,7 @@ class DashboardAdmin : AppCompatActivity() {
     }
 
     private fun setUsers() {
+        //mengatur data user
         UserFireStore.getAllUsers {
             if (it.isNotEmpty()) {
                 with(binding) {

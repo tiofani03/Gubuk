@@ -38,10 +38,12 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val itemMenu = menu?.findItem(R.id.actionSearch)
+        //untuk mencari buku
         binding.searchView.apply {
             setMenuItem(itemMenu)
             setHint("Cari buku...")
             showSearch()
+            //ketika ada query
             setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     searchData(query)
@@ -61,6 +63,7 @@ class SearchActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    //fungsi untuk mencari data
     private fun searchData(query: String) {
         supportActionBar?.title = query
         BookFireStore.searchBook(query) {
@@ -79,6 +82,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
+    //tombol back
     override fun onSupportNavigateUp(): Boolean {
         with(binding) {
             if (searchView.isSearchOpen) searchView.closeSearch()
