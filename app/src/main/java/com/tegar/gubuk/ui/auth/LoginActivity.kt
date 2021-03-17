@@ -14,9 +14,14 @@ import com.tegar.gubuk.utils.Helper.getPlainText
 import com.tegar.gubuk.utils.Helper.showToast
 import com.tegar.gubuk.ui.admin.DashboardAdmin
 import com.tegar.gubuk.ui.main.MainActivity
+import com.tegar.gubuk.utils.DialogHelper
 import com.tegar.gubuk.utils.DialogHelper.showLoading
 import com.tegar.gubuk.utils.ThemePreference
+import io.github.achmadhafid.lottie_dialog.core.*
 import io.github.achmadhafid.lottie_dialog.dismissLottieDialog
+import io.github.achmadhafid.lottie_dialog.model.LottieDialogInput
+import io.github.achmadhafid.lottie_dialog.model.LottieDialogTheme
+import io.github.achmadhafid.lottie_dialog.model.LottieDialogType
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -45,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvForgotPw.setOnClickListener {
-
+            showDialogForgotPassword()
         }
 
         binding.tvSignUp.setOnClickListener {
@@ -120,6 +125,53 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             },1000)
+
+        }
+    }
+
+    //untuk lupa password
+    private fun forgotPassword(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    showToast(this, "Email dikirim ke $email")
+                }
+            }
+
+    }
+
+    //menampilkan dialog lupa password
+    private fun showDialogForgotPassword() {
+        lottieInputDialog(Int.MAX_VALUE, DialogHelper.askSomething) {
+            LottieDialogType.BOTTOM_SHEET
+            theme = LottieDialogTheme.DAY_NIGHT
+            withAnimation {
+                fileRes = R.raw.forgot_pw
+                showCloseButton = true
+            }
+
+            withTitle {
+                text = "Lupa password"
+            }
+
+            withContent {
+                text = "Masukan email anda"
+            }
+            withInputSpec {
+                LottieDialogInput.Type.TEXT
+                initialValue = "Email Anda"
+                isValidInput { it.isNotEmpty() }
+            }
+
+            withCancelOption {
+                onBackPressed = true
+                onTouchOutside = true
+            }
+
+
+            onValidInput { input ->
+                forgotPassword(input)
+            }
 
         }
     }
